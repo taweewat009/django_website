@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block profile %}
+
+    <div class="card mt-3">
+        <img src="{% static 'photo.png' %}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title">Hello world.</h5>
+            <p class="card-text">ทวีวัฒน์ บานฤทัย ครูผู้ช่วย สอนที่โรงเรียนบ้านเซียมป่าหม้อ อำเภอแก้งคร้อ จังหวัดชัยภูมิ</p>
+        </div>
+        <div class="card-body">
+            <a href="#" class="card-link">เพิ่มเติม</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row" >
+    {% for blog in blogs %}
+    <div class="col-lg-4">
+        <!-- Blog post-->
+        <div class="card mb-4" style="height: 380px;">
+            <a href="{{ blog.get_url }}"><img class="card-img-top" src="{{blog.images.url}}" alt="..." /></a>
+            <div class="card-body" style="height: 250px;overflow:hidden;">
+                <div class="small text-muted">{{blog.create}}</div>
+                <p class="card-title fs-6 fw-bold">{{blog.name}}</p>
+                <p class="card-text">{{ blog.description}}</p>
+            </div>
+            <div class="card-text p-2">
+                <a class="btn btn-primary " href="{{ blog.get_url }}">Read more →</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}	
+</div>
+
+{% endblock %}

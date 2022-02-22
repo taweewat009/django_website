@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block profile %}
+
+    <div class="card mt-3">
+        <img src="{% static 'photo.png' %}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title">Hello world.</h5>
+            <p class="card-text">ทวีวัฒน์ บานฤทัย ครูผู้ช่วย สอนที่โรงเรียนบ้านเซียมป่าหม้อ อำเภอแก้งคร้อ จังหวัดชัยภูมิ</p>
+        </div>
+        <div class="card-body">
+            <a href="#" class="card-link">เพิ่มเติม</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 ">
+    <div class="container text-center">
+        <h1 class="text-success">ช่องทางส่งงานนักเรียน</h1>
+    </div>
+    <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">ชั้น ป.4</h4>
+          <p class="card-text">ส่งงานที่นี่</p>
+          <a href="https://driveuploader.com/upload/Fc9qE0iKNR/" class="card-link">ส่งงานนักเรียนชั้น ป.4</a>
+        </div>
+      </div>
+</div>
+
+{% endblock %}

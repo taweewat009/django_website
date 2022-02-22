@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KruBom</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+	<script src="https://use.fontawesome.com/82cdc933ad.js"></script>  <!-- font awesome-->
+	<!-- import font -->
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@100;500&display=swap');
+		.a {
+    position: relative;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+  }
+  
+  .a:hover {
+    color: rgb(255, 255, 255);
+  }
+  
+  .a::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .a:hover::before {
+    transform: scaleX(1);
+  }
+	</style>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6437224792192946"
+	crossorigin="anonymous"></script>
+</head>
+<body style="font-family: 'Noto Sans Thai', sans-serif;">
+    <div class="container mt-3">
+		<nav class="navbar navbar-expand-lg navbar-dark  rounded" aria-label="Eleventh navbar example" style="background-color: hsl(206, 21%, 30%);">
+			<div class="container-fluid">
+			<a class="navbar-brand fs-2" href="#">K R U B O M</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarsExample09">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="a nav-link active fs-4" aria-current="page" href="{% url 'index' %}">หน้าแรก</a>
+				</li>
+				<li class="nav-item">
+					<a class="a nav-link active fs-4" aria-current="page" href="{% url 'about' %}">เกี่ยวกับ</a>
+				</li>
+				<li class="nav-item">
+					<a class="a nav-link active fs-4" aria-current="page" href="{% url 'index' %}">บทความ</a>
+				</li>
+				</ul>
+			</div>
+			</div>
+		</nav>
+	</div>
+	
+    <!-- Page content-->
+	<div class="container mt-5 ">
+		<div class="row">
+			<div class="col-lg-8">
+				<!-- Post content-->
+				<article>
+					<!-- Post header-->
+					<header class="mb-4">
+						<!-- Post title-->
+						<h1 class="fw-bolder mb-1">{{ blogdetail.name }}</h1>
+						<!-- Post meta content-->
+						<div class="text-muted fst-italic mb-2">{{blogdetail.create}}</div>
+						<!-- Post categories-->
+					</header>
+					<!-- Preview image figure-->
+					<figure class="mb-4"><img class="img-fluid rounded" height="auto" src="{{ blogdetail.images.url}}" alt="..." /></figure>
+					<!-- Post content-->
+					<section class="mb-5">
+						<p class="fs-5 mb-4">{{blogdetail.content|safe}}</p>
+					</section>	
+				</article>		
+				<div class="container mt-5 mb-5">	
+					<div class="card">
+						<div class="p-3">
+							<h6 class="badge bg-primary fs-3">แสดงความคิดเห็น</h6>
+						</div>
+						<form method="post" action="">
+							{% csrf_token %}
+								{{ form }}
+								<button type="submit" value="Add comment">ok</button>
+						</form>
+						<hr>
+						
+						{% if not comment %}
+						<p class="text-justify comment-text mb-0">ไม่มีการแสดงความคิดเห็น</p>
+						{% else %}
+							{% for comments in comment %}
+						<div class="mt-2">
+							<div class="d-flex flex-row p-3">
+								<div class="w-100">
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex flex-row align-items-center"> <span class="mr-2 badge bg-success">{{ comments.name_comment }}</span> </div> <small>{{ comments.date_add }}</small>
+									</div>
+									<p class="text-justify comment-text mb-0">{{ comments.body}}</p>
+								</div>
+							</div>
+						</div>
+							{% endfor %}
+						{% endif %}
+					</div>			
+				</div>
+
+			</div>
+
+			
+			
+			<!-- Side widgets-->
+			<div class="col-lg-4">
+				<!-- Search widget-->
+				<div class="card mb-4">
+					<div class="card-header">ค้นหา</div>
+					<div class="card-body">
+						<div class="input-group">
+							<input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+							<button class="btn btn-primary" id="button-search" type="button">ตกลง</button>
+						</div>
+					</div>
+				</div>
+				<!-- Categories widget-->
+				<div class="card mb-4">
+					<div class="card-header">หมวดหมู่บทเรียน</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12">
+									{% for cate in link %}
+										<a href="{{ cate.get_url }}"><button class="btn btn-primary mt-1">{{ cate.name}}</button></a>
+									{% endfor %}			
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card mb-4">
+					<div class="card-header fs-2">บทความล่าสุด</div>
+					<div class="card-body">
+						<div class="row">
+							{% for cate in last %}
+							<div class="col-sm-12">
+								<div class="card mb-3 " style="max-width: 540px;">
+									<div class="row g-0">
+									  <div class="col-md-4">
+										<a href="{{ cate.get_url }}"><img src="{{ cate.images.url }}" class="img-fluid rounded pt-3 ps-2	" alt="..."></a>
+									  </div>
+									  <div class="col-md-8">
+										<div class="card-body">
+											<a href="{{ cate.get_url }}"><h5 class="card-title">{{ cate.name }}</h5></a>
+										  <p class="card-text"><small class="text-muted">{{ cate.create }}</small></p>
+										  <p class="card-text badge bg-secondary"><small class="text-white">By {{ cate.writer }}</small></p>
+										</div>
+									  </div>
+									</div>
+								</div>								
+							</div>	
+							{% endfor %}						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Footer-->
+	<footer class="py-5 bg-dark navbar-fixed-bottom">
+		<div class="container"><p class="m-0 text-center text-white">Copyright &copy; Hello World 2021</p></div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+
+
+
+<!-- <div>
+	<section class="container mt-5 ">
+		<div class="container bg-white p-3" style="max-width: 900px;">
+			<div class="container" style="max-width: 750px;">
+				<div class="title-single-box">
+					<h1 class="title-single" style="border-left: 5px solid rgb(255, 196, 0);border-left-width: 15px;"> {{ blogdetail.name }}</h1>
+					<span class="color-text-a">{{ blogdetail.create}}</span><hr>
+				</div>	
+			</div>
+			<div class="col-sm-12 ">
+				<div class="text-center">
+					<img src="{{ blogdetail.images.url }}" width="50%" class="img-fluid" alt="" >
+				</div>
+			</div>	
+			<div class="container ">
+				<div class="row">
+					<div class="col-md-10 offset-md-2 col-lg-8 offser-lg-2 ">
+						<div class="container px-0">
+							<p>{{ blogdetail.content|safe }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+	<footer class="bg-dark text-center text-white">		  
+		<div class="text-center p-3">
+			<i class="fa fa-facebook-square" aria-hidden="true"></i>
+			<i class="fa fa-instagram" aria-hidden="true"></i><br>© 2021 Copyright:
+			<a class="text-white text-decoration-none" href="#">Hello World.</a>
+		</div>
+		</footer>
+	</div>
+
+-->  
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block profile %}
+
+    <div class="card mt-3">
+        <img src="{% static 'photo.png' %}" class="img-fluid">
+        <div class="card-body">
+            <h5 class="card-title">Hello world.</h5>
+            <p class="card-text">ทวีวัฒน์ บานฤทัย ครูผู้ช่วย สอนที่โรงเรียนบ้านเซียมป่าหม้อ อำเภอแก้งคร้อ จังหวัดชัยภูมิ</p>
+        </div>
+        <div class="card-body">
+            <a href="#" class="card-link">เพิ่มเติม</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 ">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-md-12 ">
+                <h3 class="text-center text-success mt-5 ">ตรวจสอบผลการเรียนในกลุ่มสาระเทคโนโลยี ภาคเรียนที่ 1/2564 </h3>
+                <form method = "post" action="{% url 'score' %}">
+                    {% csrf_token %}
+                    <input type="text" name="q" placeholder="หมายเลขบัตรประชาชน 13 หลัก" class="form-control text-center" />
+                    <input type="submit"  class="mt-2" />
+                </form>
+            </div>
+            <div class="col-md-12 mt-5">
+                <table class="table">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>ชื่อนักเรียน</th>
+                        <th>รายวิชา</th>
+                        <th>คะแนน</th>
+                        <th>เกรด</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for n in data %}
+                      <tr>
+                        <td>{{n.name}}</td>
+                        <td>{{n.subject}}</td>
+                        <td>{{n.score}}</td>
+                        <td>{{n.Grade}}</td>
+                      </tr>
+                      {% endfor %}
+                      {% for n in data_grade7 %}
+                      <tr>
+                        <td>{{n.name}}</td>
+                        <td>{{n.subject1}}</td>
+                        <td>{{n.comsci_score}}</td>
+                        <td>{{n.comsci_Grade}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{n.name}}</td>
+                        <td>{{n.subject2}}</td>
+                        <td>{{n.tech_score}}</td>
+                        <td>{{n.tech_Grade}}</td>
+                      </tr>
+                      {% endfor %}
+                      {% for n in data_grade8 %}
+                      <tr>
+                        <td>{{n.name}}</td>
+                        <td>{{n.subject1}}</td>
+                        <td>{{n.comsci_score}}</td>
+                        <td>{{n.comsci_Grade}}</td>
+                      </tr>
+                      <tr>
+                        <td>{{n.name}}</td>
+                        <td>{{n.subject2}}</td>
+                        <td>{{n.tech_score}}</td>
+                        <td>{{n.tech_Grade}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
