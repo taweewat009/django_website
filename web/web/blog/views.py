@@ -8,10 +8,9 @@ from .forms import CommentForm,CustomerForm
 
 
 
+
 # Create your views here.
 
-
-    
 def index(request,category_slug=None):
     blogs = None
     category_page = None
@@ -57,30 +56,26 @@ def index2(request,category_slug=None):
     return render(request, 'index2.html',{'blogs':blogsperpage,'category':category_page})
 
 
-def blogdetail(request,pk,category_slug,post_slug): 
-    blogdetail = Blogs.objects.get(category__slug=category_slug,slug=post_slug)
-    comment = Comment.objects.filter(post=pk)
+def blogdetail(request,slug): 
+    template_name = 'blogdetail.html'
+    blogdetail = Blogs.objects.get(slug=slug)
+    post = get_object_or_404(Blogs,slug=slug)
+    comments = post.comments.filter(active=True)
+    new_comment = None
     
-    
-
     if request.method == 'POST':
         
-        form = CommentForm(request.POST)
+        form = CommentForm(data= request.POST)
         
         if form.is_valid():
-            name = form.cleaned_data['post']
-            obj = form.save(commit=False)
-            obj.comment = comment
-            comment_post = Comment.objects.create(post=blogdetail.name)
-            obj.save()
-            
-            
-            
-                            
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+                                    
     else:
         form = CommentForm()
     
-    return render(request,'blogdetail.html',{'blogdetail':blogdetail,'form':form,'comment':comment})
+    return render(request,template_name,{'blogdetail':blogdetail,'form':form,'post':post,'new_comment':new_comment,'comments':comments})
 
     '''  
     try:

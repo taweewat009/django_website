@@ -7,7 +7,7 @@ urlpatterns = [
     path('',index,name="index"),
     path('blogs',index2,name="blogs"),
     path('category/<slug:category_slug>',index,name="category"),
-    path('blog/<int:pk>/<slug:category_slug>/<slug:post_slug>',blogdetail,name="blogdetail"),
+    path('<slug:slug>/',blogdetail,name="blogdetail"),
    
     #path('blog/<slug:slug>',blogdetail,name="blogdetail"),
     path('about/',about, name="about"),

@@ -21,24 +21,23 @@ class Blogs(models.Model):
 
 
     def get_url(self):
-        return reverse('blogdetail', args=[int(self.pk),self.category.slug,self.slug])
+        return reverse('blogdetail', args=[self.slug])
     
     def __str__(self):
         return self.name 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Blogs,related_name="comments",on_delete=models.CASCADE)
-    name_comment = models.CharField(max_length=255)
+    post = models.ForeignKey(Blogs,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
     body = models.TextField()
-    date_add = models.DateTimeField(auto_now_add=True)
-    
-    def get_absolute_url(self):
-     self.article_url = Blogs.objects.get(id=self.article_id).get_absolute_url()
-     return self.article_url
-    
-    
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created_on']
+
     def __str__(self):
-        return '%s - %s' %(self.post.name , self.name_comment)
+        return 'Comment {} by {}'.format(self.body, self.name)
 
 
 class PhotoAlbum(models.Model):

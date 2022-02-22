@@ -8,9 +8,9 @@ from .models import Comment, Customer
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = '__all__'
-    
-
+        fields = ('name','body')
+        
+        
         
 
 class CustomerForm(ModelForm):
