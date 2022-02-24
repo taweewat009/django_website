@@ -110,25 +110,7 @@ def blogdetail(request,slug):
     '''
 
 def about(request):
-    photos = PhotoAlbum.objects.all()
-    return render(request, 'bootstrap_templates/index.html',{'photos':photos})
-
-def contact(request):
-    if request.method == 'POST':
-        message_name = request.POST['message-name']
-        message_email = request.POST['message-email']
-        message = request.POST['message']
-        
-        send_mail(
-            message_name, #subject
-            message, #message
-            message_email, #from email
-            ['krutaweewat@gmail.com'], #to email
-        ) 
-        
-        return render(request, 'bootstrap_templates/index.html',{'message_name':message_name})
-    else:
-        return render(request, 'bootstrap_templates/index.html')
+    return render(request,'abouts.html')
     
 
 def onlyme(request):
